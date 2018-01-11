@@ -84,6 +84,9 @@ UniValue TxJoinSplitToJSON(const CTransaction& tx) {
 
         joinsplit.push_back(Pair("onetimePubKey", jsdescription.ephemeralKey.GetHex()));
         joinsplit.push_back(Pair("randomSeed", jsdescription.randomSeed.GetHex()));
+        
+        uint256 h_sig = jsdescription.h_sig(*pzcashParams, tx.joinSplitPubKey);
+        joinsplit.push_back(Pair("hsig", h_sig.GetHex()));
 
         {
             UniValue macs(UniValue::VARR);
